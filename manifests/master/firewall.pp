@@ -11,8 +11,8 @@ class profile_xcat::master::firewall {
 
     # Get required values from hiera, ensure they are not empty
     # network CIDR has a min length of 11 (x.x.x.x/nn)
-    $mgmt_network = lookup( 'profile_xcat::network_mgmt', String[11] )
-    $ipmi_network = lookup( 'profile_xcat::network_ipmi', String[11] )
+    $mgmt_network = lookup( 'profile_xcat::mgmt_net_cidr', String[11] )
+    $ipmi_network = lookup( 'profile_xcat::ipmi_net_cidr', String[11] )
 
     $net_names = {
         'MGMT' => $mgmt_network,

@@ -6,7 +6,7 @@
 #   include profile_xcat::master::nfs
 class profile_xcat::master::nfs {
 
-    $mgmt_network = lookup( 'profile_xcat::network_mgmt', String[11] )
+    $mgmt_network = lookup( 'profile_xcat::mgmt_net_cidr', String[11] )
 
     $common_options = [ 'rw', 'no_root_squash', 'sync', 'no_subtree_check' ]
 

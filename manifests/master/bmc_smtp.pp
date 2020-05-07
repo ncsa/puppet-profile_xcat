@@ -7,7 +7,7 @@ class profile_xcat::master::bmc_smtp {
     include ::xinetd
 
     # Get IPMI network CIDR
-    $ipmi_network = lookup( 'profile_xcat::network_ipmi', String[11] )
+    $ipmi_network = lookup( 'profile_xcat::ipmi_net_cidr', String[11] )
 
     # Ensure proper network address for IPMI network
     $tgt_net = ip_address( ip_network( $ipmi_network ) )

@@ -6,8 +6,8 @@
 #   include profile_xcat::master::tcpwrappers
 class profile_xcat::master::tcpwrappers {
 
-    $mgmt_network = lookup( 'profile_xcat::network_mgmt', String[11] )
-    $ipmi_network = lookup( 'profile_xcat::network_ipmi', String[11] )
+    $mgmt_network = lookup( 'profile_xcat::mgmt_net_cidr', String[11] )
+    $ipmi_network = lookup( 'profile_xcat::ipmi_net_cidr', String[11] )
 
     tcpwrappers::allow { 'allow all from xcat mgmt network':
         service => 'ALL',

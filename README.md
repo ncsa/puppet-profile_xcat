@@ -15,7 +15,6 @@ For admin tools, see: [ncsa/xcat-tools](https://github.com/ncsa/xcat-tools)
 - puppetlabs/firewall
 
 ## Reference
-
 ### class profile_xcat::master::root (
 -    String $sshkey_pub,
 -    String $sshkey_priv,
@@ -23,8 +22,8 @@ For admin tools, see: [ncsa/xcat-tools](https://github.com/ncsa/xcat-tools)
 ### class profile_xcat::client::ssh (
 -    String $master_node_ip,
 ### class profile_xcat (
--    String $network_mgmt,
--    String $network_ipmi,
+-    String $mgmt_net_cidr,
+-    String $ipmi_net_cidr,
 
 [/REFERENCE.md](REFERENCE.md)
 

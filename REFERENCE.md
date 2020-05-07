@@ -27,14 +27,14 @@ and xcat::client
 
 The following parameters are available in the `profile_xcat` class.
 
-##### `network_mgmt`
+##### `mgmt_net_cidr`
 
 Data type: `String`
 
 - String
 xCAT boot and mgmt network, in CIDR format
 
-##### `network_ipmi`
+##### `ipmi_net_cidr`
 
 Data type: `String`
 
