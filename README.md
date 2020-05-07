@@ -2,6 +2,10 @@
 
 NCSA Common Profiles - Basic xcat master and client setup
 
+This profile does not install xCAT.
+
+For admin tools, see: [ncsa/xcat-tools](https://github.com/ncsa/xcat-tools)
+
 ## Dependencies
 
 - inkblot-ipcalc
@@ -22,4 +26,5 @@ NCSA Common Profiles - Basic xcat master and client setup
 -    String $network_mgmt,
 -    String $network_ipmi,
 
-[REFERENCE.md](REFERENCE.md)
+[/REFERENCE.md](REFERENCE.md)
+
