@@ -1,20 +1,21 @@
 # @summary Setup root account
 #
-# @param sshkey_pub - String
-#                     public part of root's sshkey
-#                     installed on all client nodes for passwdless access
-#                     from xcat mn
+# Setup root account
 #
-# @param sshkey_priv - String
-#                      private part of root's sshkey
+# Automatically included by profile_xcat::master
 #
-# @param sshkey_type - String
-#                      Currently, xcat supports only rsa
-#                      sshkeys are stored in /root/id_<TYPE>* files
-#                      (optional, defaults to 'rsa')
+# @param sshkey_pub
+#   Public part of root's sshkey.
 #
-# @example
-#   include profile_xcat::master::root
+#   Installed on all client nodes for passwdless access from xcat mn
+#
+# @param sshkey_priv
+#    Private part of root's sshkey.
+#
+# @param sshkey_type
+#    Currently, xcat supports only rsa sshkeys.
+#
+#    Sshkeys are stored in /root/id_<TYPE>* files
 class profile_xcat::master::root (
     String $sshkey_pub,
     String $sshkey_priv,

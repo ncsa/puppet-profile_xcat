@@ -1,7 +1,8 @@
-# @summary Configure an xcat master node
+# @summary Configure an xcat master node.
 #
-# @example
-#   include profile_xcat::master
+# Configure an xcat master node.
+#
+# Includes all subordinate classes.
 class profile_xcat::master {
     include ::profile_xcat::master::bmc_smtp
     include ::profile_xcat::master::firewall

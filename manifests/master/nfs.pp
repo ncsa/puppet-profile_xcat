@@ -1,9 +1,10 @@
 # @summary Harden NFS settings on xcat-master
 #
+# Harden NFS settings on xcat-master
+#
 # Allow exports only on the mgmt network
 #
-# @example
-#   include profile_xcat::master::nfs
+# Automatically included by profile_xcat::master
 class profile_xcat::master::nfs {
 
     $mgmt_network = lookup( 'profile_xcat::mgmt_net_cidr', String[11] )

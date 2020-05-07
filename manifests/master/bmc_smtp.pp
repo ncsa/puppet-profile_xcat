@@ -1,7 +1,8 @@
 # @summary Forward email from node BMC's to MDA on local (master) node
 #
-# @example
-#   include profile_xcat::master::bmc_smtp
+# Forward email from node BMC's to MDA on local (master) node
+#
+# Automatically included by profile_xcat::master
 class profile_xcat::master::bmc_smtp {
 
     include ::xinetd

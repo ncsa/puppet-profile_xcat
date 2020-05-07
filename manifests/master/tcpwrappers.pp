@@ -1,9 +1,8 @@
-# @summary A short summary of the purpose of this class
+# @summary Configure tcpwrappers to allow from mgmt net and ipmi net
 #
-# A description of what this class does
+# Configure tcpwrappers to allow from mgmt net and ipmi net
 #
-# @example
-#   include profile_xcat::master::tcpwrappers
+# Automatically included by profile_xcat::master
 class profile_xcat::master::tcpwrappers {
 
     $mgmt_network = lookup( 'profile_xcat::mgmt_net_cidr', String[11] )

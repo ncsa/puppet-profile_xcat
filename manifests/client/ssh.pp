@@ -1,16 +1,13 @@
 # @summary Allow passwdless root access from xcat master node
 #
-# @param master_node_ip - String
-#                         IP address of xcat master node
+# Allow passwdless root access from xcat master node
 #
-# @example
-#   include profile_xcat::client::ssh
-class profile_xcat::client::ssh (
-    String $master_node_ip,
-) {
+# Automatically included by profile_xcat::master
+class profile_xcat::client::ssh {
 
-    # Get xcat master node root public key
+    # Get xcat master node info
     $pubkey = lookup( 'profile_xcat::master::root::sshkey_pub' )
+    $master_node_ip = lookup( 'profile_xcat::master_node_ip' )
 
     # Open firewall and configure sshd_config
     $params = {

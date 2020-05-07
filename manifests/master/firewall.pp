@@ -1,12 +1,11 @@
-# @summary A short summary of the purpose of this class
+# @summary Open firewall for xcat services on mgmt and ipmi networks
 #
-# A description of what this class does
+# Open firewall for xcat services on mgmt and ipmi networks
 #
 # Required ports list at:
 # https://xcat-docs.readthedocs.io/en/stable/advanced/ports/xcat_ports.html
 #
-# @example
-#   include profile_xcat::master::firewall
+# Automatically included by profile_xcat::master
 class profile_xcat::master::firewall {
 
     # Get required values from hiera, ensure they are not empty

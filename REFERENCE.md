@@ -5,41 +5,43 @@
 
 **Classes**
 
-* [`profile_xcat`](#profile_xcat): Primarily houses variables that are used by both xcat::master
-and xcat::client
+* [`profile_xcat`](#profile_xcat): Defines variables that are used by both xcat::master and xcat::client
 * [`profile_xcat::client`](#profile_xcatclient): Setup access from xcat master to xcat client
 * [`profile_xcat::client::ssh`](#profile_xcatclientssh): Allow passwdless root access from xcat master node
-* [`profile_xcat::master`](#profile_xcatmaster): Configure an xcat master node
+* [`profile_xcat::master`](#profile_xcatmaster): Configure an xcat master node.
 * [`profile_xcat::master::bmc_smtp`](#profile_xcatmasterbmc_smtp): Forward email from node BMC's to MDA on local (master) node
-* [`profile_xcat::master::firewall`](#profile_xcatmasterfirewall): A short summary of the purpose of this class
+* [`profile_xcat::master::firewall`](#profile_xcatmasterfirewall): Open firewall for xcat services on mgmt and ipmi networks
 * [`profile_xcat::master::nfs`](#profile_xcatmasternfs): Harden NFS settings on xcat-master
 * [`profile_xcat::master::root`](#profile_xcatmasterroot): Setup root account
-* [`profile_xcat::master::tcpwrappers`](#profile_xcatmastertcpwrappers): A short summary of the purpose of this class
+* [`profile_xcat::master::tcpwrappers`](#profile_xcatmastertcpwrappers): Configure tcpwrappers to allow from mgmt net and ipmi net
 
 ## Classes
 
 ### profile_xcat
 
-Primarily houses variables that are used by both xcat::master
-and xcat::client
+Defines variables that are used by xcat::master and xcat::client
 
 #### Parameters
 
 The following parameters are available in the `profile_xcat` class.
 
-##### `mgmt_net_cidr`
-
-Data type: `String`
-
-- String
-xCAT boot and mgmt network, in CIDR format
-
 ##### `ipmi_net_cidr`
 
 Data type: `String`
 
-- String
 xCAT IPMI network, in CIDR format
+
+##### `mgmt_net_cidr`
+
+Data type: `String`
+
+xCAT boot and mgmt network, in CIDR format
+
+##### `master_node_ip`
+
+Data type: `String`
+
+IP of xCAT master node
 
 ### profile_xcat::client
 
@@ -57,87 +59,42 @@ include profile_xcat::client
 
 Allow passwdless root access from xcat master node
 
-#### Examples
-
-##### 
-
-```puppet
-include profile_xcat::client::ssh
-```
-
-#### Parameters
-
-The following parameters are available in the `profile_xcat::client::ssh` class.
-
-##### `master_node_ip`
-
-Data type: `String`
-
-- String
-IP address of xcat master node
+Automatically included by profile_xcat::master
 
 ### profile_xcat::master
 
-Configure an xcat master node
+Configure an xcat master node.
 
-#### Examples
-
-##### 
-
-```puppet
-include profile_xcat::master
-```
+Includes all subordinate classes.
 
 ### profile_xcat::master::bmc_smtp
 
 Forward email from node BMC's to MDA on local (master) node
 
-#### Examples
-
-##### 
-
-```puppet
-include profile_xcat::master::bmc_smtp
-```
+Automatically included by profile_xcat::master
 
 ### profile_xcat::master::firewall
 
-A description of what this class does
+Open firewall for xcat services on mgmt and ipmi networks
 
 Required ports list at:
 https://xcat-docs.readthedocs.io/en/stable/advanced/ports/xcat_ports.html
 
-#### Examples
-
-##### 
-
-```puppet
-include profile_xcat::master::firewall
-```
+Automatically included by profile_xcat::master
 
 ### profile_xcat::master::nfs
 
+Harden NFS settings on xcat-master
+
 Allow exports only on the mgmt network
 
-#### Examples
-
-##### 
-
-```puppet
-include profile_xcat::master::nfs
-```
+Automatically included by profile_xcat::master
 
 ### profile_xcat::master::root
 
 Setup root account
 
-#### Examples
-
-##### 
-
-```puppet
-include profile_xcat::master::root
-```
+Automatically included by profile_xcat::master
 
 #### Parameters
 
@@ -147,36 +104,27 @@ The following parameters are available in the `profile_xcat::master::root` class
 
 Data type: `String`
 
-- String
-public part of root's sshkey
-installed on all client nodes for passwdless access
-from xcat mn
+Public part of root's sshkey.
+
+Installed on all client nodes for passwdless access from xcat mn
 
 ##### `sshkey_priv`
 
 Data type: `String`
 
-- String
-private part of root's sshkey
+Private part of root's sshkey.
 
 ##### `sshkey_type`
 
 Data type: `String`
 
-- String
-Currently, xcat supports only rsa
-sshkeys are stored in /root/id_<TYPE>* files
-(optional, defaults to 'rsa')
+Currently, xcat supports only rsa sshkeys.
+
+Sshkeys are stored in /root/id_<TYPE>* files
 
 ### profile_xcat::master::tcpwrappers
 
-A description of what this class does
+Configure tcpwrappers to allow from mgmt net and ipmi net
 
-#### Examples
-
-##### 
-
-```puppet
-include profile_xcat::master::tcpwrappers
-```
+Automatically included by profile_xcat::master
 
