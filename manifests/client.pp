@@ -5,5 +5,5 @@
 # @example
 #   include profile_xcat::client
 class profile_xcat::client {
-    include ::profile_xcat::client::ssh
+  include ::profile_xcat::client::ssh
 }

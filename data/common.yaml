@@ -1,2 +1,6 @@
 ---
+#empty values to allow for client to run without errors
+profile_xcat::master_node_ip: ""
+profile_xcat::master::root::sshkey_pub: ""
+#xCAT doesn't seem to support other key types at the moment
 profile_xcat::master::root::sshkey_type: "rsa"

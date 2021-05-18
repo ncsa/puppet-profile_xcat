@@ -13,48 +13,48 @@
 #    Private part of root's sshkey.
 #
 # @param sshkey_type
-#    Currently, xcat supports only rsa sshkeys.
+#    OPTIONAL - defaults to "rsa" (currently, xcat supports only rsa sshkeys)
 #
 #    Sshkeys are stored in /root/id_<TYPE>* files
 class profile_xcat::master::root (
-    String $sshkey_pub,
-    String $sshkey_priv,
-    String $sshkey_type,
+  String $sshkey_pub,
+  String $sshkey_priv,
+  String $sshkey_type,
 ) {
 
-    # Secure sensitive data (keep it from showing in logs)
-    $pubkey = Sensitive( $sshkey_pub )
-    $privkey = Sensitive( $sshkey_priv )
+  # Secure sensitive data to prevent it showing in logs
+  $pubkey = Sensitive( $sshkey_pub )
+  $privkey = Sensitive( $sshkey_priv )
 
-    # Local variables
+  # Local variables
 
-    $sshdir = '/root/.ssh'
+  $sshdir = '/root/.ssh'
 
-    $file_defaults = {
-        ensure  => file,
-        owner   => root,
-        group   => root,
-        mode    => '0600',
-        require =>  File[ $sshdir ],
-    }
+  $file_defaults = {
+    ensure  => file,
+    owner   => root,
+    group   => root,
+    mode    => '0600',
+    require =>  File[ $sshdir ],
+  }
 
 
-    # Define unique parameters of each resource
-    $data = {
-        $sshdir => {
-            ensure => directory,
-            mode   => '0700',
-            require => [],
-        },
-        "${sshdir}/id_${sshkey_type}" => {
-            content => $privkey,
-        },
-        "${sshdir}/id_${sshkey_type}.pub" => {
-            content => $pubkey,
-            mode    => '0644',
-        },
-    }
+  # Define unique parameters of each resource
+  $data = {
+    $sshdir => {
+      ensure => directory,
+      mode   => '0700',
+      require => [],
+    },
+    "${sshdir}/id_${sshkey_type}" => {
+      content => $privkey,
+    },
+    "${sshdir}/id_${sshkey_type}.pub" => {
+      content => $pubkey,
+      mode    => '0644',
+    },
+  }
 
-    # Ensure the resources
-    ensure_resources( 'file', $data, $file_defaults )
+  # Ensure the resources
+  ensure_resources( 'file', $data, $file_defaults )
 }

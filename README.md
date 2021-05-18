@@ -1,5 +1,9 @@
 # profile_xcat
 
+[![pdk-validate](https://github.com/ncsa/puppet-profile_xcat/actions/workflows/pdk-validate.yml/badge.svg)](https://github.com/ncsa/puppet-profile_xcat/actions/workflows/pdk-validate.yml)
+
+[![yamllint](https://github.com/ncsa/puppet-profile_xcat/actions/workflows/yamllint.yml/badge.svg)](https://github.com/ncsa/puppet-profile_xcat/actions/workflows/yamllint.yml)
+
 NCSA Common Profiles - Basic xcat master and client setup
 
 This profile does not install xCAT.
@@ -15,15 +19,66 @@ For admin tools, see: [ncsa/xcat-tools](https://github.com/ncsa/xcat-tools)
 - [puppetlabs/xinetd](https://forge.puppet.com/puppetlabs/xinetd)
 - [sharumpe/tcpwrappers](https://forge.puppet.com/sharumpe/tcpwrappers)
 
+
+## Usage
+### xCAT Client
+In a role.pp or profile.pp file:
+```
+include profile_xcat::client
+```
+Heira data:
+```
+---
+profile_xcat::master_node_ip: "172.28.28.20"
+profile_xcat::master::root::sshkey_pub: "\
+  ssh-rsa \
+  AAAAB3NzaC1yc2EAAAADAQAB\
+  fyXKWY8jNYwxtwSeAWXGIxAZ\
+  fwq98EgEGMZQV4987g6ehq/o \
+  root@xcat_server"
+```
+
+### xCAT Server
+In a role.pp or profile.pp file:
+```
+include profile_xcat::master
+```
+Hiera data ... pay close attention to the formatting of the multi-line strings:
+- Spaces are added in the proper place in the ssh public key
+- Newline is retained in the ssh private key
+```
+---
+profile_xcat::ipmi_net_cidrs: []
+profile_xcat::mgmt_net_cidrs:
+  - "172.28.28.0/24"
+  - "172.28.20.0/23"
+profile_xcat::master_node_ip: "172.28.28.20"
+profile_xcat::master::root::sshkey_pub: "\
+  ssh-rsa \
+  AAAAB3NzaC1yc2EAAAADAQAB\
+  fyXKWY8jNYwxtwSeAWXGIxAZ \
+  root@xcat_server"
+profile_xcat::master::root::sshkey_priv: |
+  -----BEGIN OPENSSH PRIVATE KEY-----
+  b3BlbnNzaC1rZXktdjEAAAAAB
+  NhAAAAAwEAAQAAAQEA5UTveYT
+  ...
+  -----END OPENSSH PRIVATE KEY-----
+```
+
 ## Reference
 
-### class profile_xcat::master::root (
--    String $sshkey_pub,
--    String $sshkey_priv,
--    String $sshkey_type,
 ### class profile_xcat (
--    String $ipmi_net_cidr,
--    String $mgmt_net_cidr,
--    String $master_node_ip,
+-  Array $ipmi_net_cidrs,
+-  Array $mgmt_net_cidrs,
+-  String $master_node_ip,
+### class profile_xcat::master::root (
+-  String $sshkey_pub,
+-  String $sshkey_priv,
+-  String $sshkey_type,
+### define profile_xcat::master::nfs::export (
+-  String $mount_point,
+-  String $network,
+-  Array  $options,
 
 [REFERENCE.md](REFERENCE.md)
