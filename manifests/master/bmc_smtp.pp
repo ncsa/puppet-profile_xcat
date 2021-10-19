@@ -12,7 +12,7 @@ class profile_xcat::master::bmc_smtp {
 
   $ipmi_networks.each | $cidr | {
     # Validate proper network address for IPMI network
-    $tgt_net = ip_address( ip_network( $ipmi_networks ) )
+    $tgt_net = ip_address( ip_network( $cidr ) )
 
     # Check all local ip's if any match one of the $ipmi_networks
     $bind_ip = $facts['networking']['interfaces'].reduce('') | $memo, $kv | {
