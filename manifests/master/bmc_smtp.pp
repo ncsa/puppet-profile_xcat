@@ -7,24 +7,33 @@ class profile_xcat::master::bmc_smtp {
 
   include ::xinetd
 
-  # Get IPMI network CIDR
-  $ipmi_networks = lookup( 'profile_xcat::ipmi_net_cidrs', Array )
+  #Check for defined bind address
+  $ipmi_bind_ip = lookup( 'profile_xcat::ipmi_bind_ip', String, undef, 'Null' )
 
-  $ipmi_networks.each | $cidr | {
-    # Validate proper network address for IPMI network
-    $tgt_net = ip_address( ip_network( $cidr ) )
+  #If defined set the bind IP and verify the correct IP address
+  if ( $ipmi_bind_ip != 'Null' ) {
+    $bind_ip = ip_address( $ipmi_bind_ip )
+  }
+  #Discover the IP address from puppet facts
+  else {
+    # Get IPMI network CIDR
+    $ipmi_networks = lookup( 'profile_xcat::ipmi_net_cidrs', Array )
+    $ipmi_networks.each | $cidr | {
+      # Validate proper network address for IPMI network
+      $tgt_net = ip_address( ip_network( $cidr ) )
 
-    # Check all local ip's if any match one of the $ipmi_networks
-    $bind_ip = $facts['networking']['interfaces'].reduce('') | $memo, $kv | {
-      # $kv is [ interface_name , interface_data ]
-      $if_name = $kv[0]
-      $interface_data = $kv[1]
-      $ip = $interface_data['ip']
-      $network = $interface_data['network']
-      if $network == $tgt_net {
-        $interface_data['ip']
-      } else {
-        $memo
+      # Check all local ip's if any match one of the $ipmi_networks
+      $bind_ip = $facts['networking']['interfaces'].reduce('') | $memo, $kv | {
+        # $kv is [ interface_name , interface_data ]
+        $if_name = $kv[0]
+        $interface_data = $kv[1]
+        $ip = $interface_data['ip']
+        $network = $interface_data['network']
+        if $network == $tgt_net {
+          $interface_data['ip']
+        } else {
+          $memo
+        }
       }
     }
   }
