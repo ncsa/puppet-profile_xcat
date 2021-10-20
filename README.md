@@ -66,12 +66,18 @@ profile_xcat::master::root::sshkey_priv: |
   -----END OPENSSH PRIVATE KEY-----
 ```
 
+When using an xCat server on a VM or a routed network, define the bind ip in hiera for xinetd for the xcat server.
+```
+profile_xcat::ipmi_bind_ip: "172.28.16.67"
+```
+
 ## Reference
 
 ### class profile_xcat (
 -  Array $ipmi_net_cidrs,
 -  Array $mgmt_net_cidrs,
 -  String $master_node_ip,
+-  String $ipmi_bind_ip,
 ### class profile_xcat::master::root (
 -  String $sshkey_pub,
 -  String $sshkey_priv,
