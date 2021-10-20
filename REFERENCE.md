@@ -31,6 +31,7 @@ Defines variables that are used by xcat::master and xcat::client
 The following parameters are available in the `profile_xcat` class:
 
 * [`ipmi_net_cidrs`](#ipmi_net_cidrs)
+* [`ipmi_bind_ip`](#ipmi_bind_ip)
 * [`mgmt_net_cidrs`](#mgmt_net_cidrs)
 * [`master_node_ip`](#master_node_ip)
 
@@ -51,6 +52,13 @@ xCAT boot and mgmt network(s), in CIDR format
 Data type: `String`
 
 IP of xCAT master node
+
+##### <a name="ipmi_bind_ip"></a>`ipmi_bind_ip`
+
+Data type: `String`
+
+IP of the interface which bind for IPMI. 
+This is generally for machines where the IPMI is routed.
 
 ### <a name="profile_xcatclient"></a>`profile_xcat::client`
 
