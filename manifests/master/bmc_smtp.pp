@@ -8,11 +8,15 @@ class profile_xcat::master::bmc_smtp {
   include ::xinetd
 
   #Check for defined bind address
-  $ipmi_bind_ip = lookup( 'profile_xcat::ipmi_bind_ip', String, undef, 'Null' )
+  $ipmi_bind_ip = lookup( 'profile_xcat::ipmi_bind_ip', String, 'first', undef )
 
   #If defined set the bind IP and verify the correct IP address
-  if ( $ipmi_bind_ip != 'Null' ) {
-    $bind_ip = ip_address( $ipmi_bind_ip )
+  if ( $ipmi_bind_ip != undef ) {
+    if ( $ipmi_bind_ip =~ Stdlib::IP::Address::V4 ) {
+      $bind_ip = $ipmi_bind_ip
+    } else {
+      notify{'$ipmi_bind_ip is not a valid IP address': }
+    }
   }
   #Discover the IP address from puppet facts
   else {

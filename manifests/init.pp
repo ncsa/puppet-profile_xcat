@@ -14,7 +14,7 @@ class profile_xcat (
   Array $ipmi_net_cidrs,
   Array $mgmt_net_cidrs,
   String $master_node_ip,
-  String $ipmi_bind_ip,
+  Optional[ String ] $ipmi_bind_ip,
 ) {
   # nothing to do here, just define class parameters above for use in the
   # other classes
