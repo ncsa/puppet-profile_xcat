@@ -15,6 +15,7 @@ class profile_xcat::master::bmc_smtp {
     if ( $ipmi_bind_ip =~ Stdlib::IP::Address::V4 ) {
       $bind_ip = $ipmi_bind_ip
     } else {
+      $bind_ip = ''
       notify{'$ipmi_bind_ip is not a valid IP address': }
     }
   }
