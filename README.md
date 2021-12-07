@@ -73,11 +73,8 @@ profile_xcat::ipmi_bind_ip: "172.28.16.67"
 
 ## Reference
 
-### class profile_xcat (
--  Array $ipmi_net_cidrs,
--  Array $mgmt_net_cidrs,
--  String $master_node_ip,
--  String $ipmi_bind_ip,
+### class profile_xcat::master::firewall (
+-  Hash $net_port_map,
 ### class profile_xcat::master::root (
 -  String $sshkey_pub,
 -  String $sshkey_priv,
@@ -86,5 +83,10 @@ profile_xcat::ipmi_bind_ip: "172.28.16.67"
 -  String $mount_point,
 -  String $network,
 -  Array  $options,
+### class profile_xcat (
+-  Array $ipmi_net_cidrs,
+-  Array $mgmt_net_cidrs,
+-  String $master_node_ip,
+-  Optional[ String ] $ipmi_bind_ip,
 
 [REFERENCE.md](REFERENCE.md)
