@@ -10,7 +10,7 @@
 * [`profile_xcat::client`](#profile_xcatclient): Setup access from xcat master to xcat client
 * [`profile_xcat::client::ssh`](#profile_xcatclientssh): Allow passwdless root access from xcat master node
 * [`profile_xcat::master`](#profile_xcatmaster): Configure an xcat master node.
-* [`profile_xcat::master::bmc_smtp`](#profile_xcatmasterbmc_smtp): Forward email from node BMC's to MDA on local (master) node
+* [`profile_xcat::master::bmc_smtp`](#profile_xcatmasterbmc_smtp): Setup xinetd to allow forwarding email from node BMC's to MDA on local (master) node
 * [`profile_xcat::master::firewall`](#profile_xcatmasterfirewall): Open firewall for xcat services on mgmt and ipmi networks
 * [`profile_xcat::master::nfs`](#profile_xcatmasternfs): Harden NFS settings on xcat-master
 * [`profile_xcat::master::root`](#profile_xcatmasterroot): Setup root account
@@ -31,9 +31,9 @@ Defines variables that are used by xcat::master and xcat::client
 The following parameters are available in the `profile_xcat` class:
 
 * [`ipmi_net_cidrs`](#ipmi_net_cidrs)
-* [`ipmi_bind_ip`](#ipmi_bind_ip)
 * [`mgmt_net_cidrs`](#mgmt_net_cidrs)
 * [`master_node_ip`](#master_node_ip)
+* [`ipmi_bind_ip`](#ipmi_bind_ip)
 
 ##### <a name="ipmi_net_cidrs"></a>`ipmi_net_cidrs`
 
@@ -55,10 +55,9 @@ IP of xCAT master node
 
 ##### <a name="ipmi_bind_ip"></a>`ipmi_bind_ip`
 
-Data type: `String`
+Data type: `Optional[ String ]`
 
-IP of the interface which bind for IPMI. 
-This is generally for machines where the IPMI is routed.
+
 
 ### <a name="profile_xcatclient"></a>`profile_xcat::client`
 
@@ -86,9 +85,21 @@ Includes all subordinate classes.
 
 ### <a name="profile_xcatmasterbmc_smtp"></a>`profile_xcat::master::bmc_smtp`
 
-Forward email from node BMC's to MDA on local (master) node
+Setup xinetd to allow forwarding email from node BMC's to MDA on local (master) node
 
 Automatically included by profile_xcat::master
+
+#### Parameters
+
+The following parameters are available in the `profile_xcat::master::bmc_smtp` class:
+
+* [`enable_bmc_smtp`](#enable_bmc_smtp)
+
+##### <a name="enable_bmc_smtp"></a>`enable_bmc_smtp`
+
+Data type: `Boolean`
+
+Enable/disable the xinetd service allowing xcat nodes to send to xcat master. Default enabled
 
 ### <a name="profile_xcatmasterfirewall"></a>`profile_xcat::master::firewall`
 
@@ -98,6 +109,19 @@ Required ports list at:
 https://xcat-docs.readthedocs.io/en/stable/advanced/ports/xcat_ports.html
 
 Automatically included by profile_xcat::master
+
+#### Parameters
+
+The following parameters are available in the `profile_xcat::master::firewall` class:
+
+* [`net_port_map`](#net_port_map)
+
+##### <a name="net_port_map"></a>`net_port_map`
+
+Data type: `Hash`
+
+Hash of hashes defining the Network (MGMT or IPMI, both required), the protocol (tcp or udp),
+and the port(s) to open. See common.yaml for example
 
 ### <a name="profile_xcatmasternfs"></a>`profile_xcat::master::nfs`
 
