@@ -2,11 +2,17 @@
 #
 # Open firewall for xcat services on mgmt and ipmi networks
 #
+# @param net_port_map
+#   Hash of hashes defining the Network (MGMT or IPMI, both required), the protocol (tcp or udp),
+#   and the port(s) to open. See common.yaml for example
+#
 # Required ports list at:
 # https://xcat-docs.readthedocs.io/en/stable/advanced/ports/xcat_ports.html
 #
 # Automatically included by profile_xcat::master
-class profile_xcat::master::firewall {
+class profile_xcat::master::firewall (
+  Hash $net_port_map,
+){
 
   # Get required values from hiera, ensure they are not empty
   # network CIDR has a min length of 11 (x.x.x.x/nn)
@@ -22,16 +28,6 @@ class profile_xcat::master::firewall {
   }
   # combine the hashes
   $all_nets = $m_nets + $i_nets
-
-  $net_port_map = {
-    'MGMT' => {
-      'tcp' => [ 53, 67, 68, 69, 80, 123, 514, 782, 873, 2049, 3001, 3002, 4011 ],
-      'udp' => [ 53, 69, 80, 514, 873, 2049, 3001, 3002 ],
-    },
-    'IPMI' => {
-      'tcp' => [ 25 ]
-    },
-  }
 
   # For each network, for each protocol, add firewall exceptions for the ports
   # Outer loop is the networks passed in, so if any were empty lists, nothing
