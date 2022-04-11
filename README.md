@@ -71,6 +71,12 @@ When using an xCat server on a VM or a routed network, define the bind ip in hie
 profile_xcat::ipmi_bind_ip: "172.28.16.67"
 ```
 
+Allowed ports have been trimmed down from security vetting, you can override this hiera value to open up anything extra
+```
+profile_xcat::master::firewall::net_port_map
+```
+Also see the defaults for `net_port_map` set in common.yaml, which has many of the possible ports listed but commented out
+
 ## Reference
 
 ### class profile_xcat::master::firewall (
