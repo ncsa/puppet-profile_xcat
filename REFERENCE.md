@@ -99,7 +99,7 @@ The following parameters are available in the `profile_xcat::master::bmc_smtp` c
 
 Data type: `Boolean`
 
-Enable/disable the xinetd service allowing xcat nodes to send to xcat master. Default enabled
+Enable/disable the xinetd service allowing xcat nodes to send to xcat master.
 
 ### <a name="profile_xcatmasterfirewall"></a>`profile_xcat::master::firewall`
 
