@@ -12,8 +12,7 @@
 # Automatically included by profile_xcat::master
 class profile_xcat::master::firewall (
   Hash $net_port_map,
-){
-
+) {
   # Get required values from hiera, ensure they are not empty
   # network CIDR has a min length of 11 (x.x.x.x/nn)
   $mgmt_networks = lookup( 'profile_xcat::mgmt_net_cidrs', Array )
@@ -21,10 +20,10 @@ class profile_xcat::master::firewall (
 
   # assign typekey to each network
   $m_nets = $mgmt_networks.reduce({}) | $memo, $net | {
-    $memo + { $net =>  'MGMT' }
+    $memo + { $net => 'MGMT' }
   }
   $i_nets = $ipmi_networks.reduce({}) | $memo, $net | {
-    $memo + { $net =>  'IPMI' }
+    $memo + { $net => 'IPMI' }
   }
   # combine the hashes
   $all_nets = $m_nets + $i_nets
@@ -36,12 +35,11 @@ class profile_xcat::master::firewall (
     each( $net_port_map[ $typekey ] ) | $protocol, $portlist | {
       firewall {
         "208 allow incoming '${protocol}' ports on XCAT '${typekey}' net '${src}'":
-            action => 'accept',
-            dport  => $portlist,
-            proto  => $protocol,
-            source => $src,
+          action => 'accept',
+          dport  => $portlist,
+          proto  => $protocol,
+          source => $src,
       }
     }
   }
-
 }

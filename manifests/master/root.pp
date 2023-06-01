@@ -21,7 +21,6 @@ class profile_xcat::master::root (
   String $sshkey_priv,
   String $sshkey_type,
 ) {
-
   # Secure sensitive data to prevent it showing in logs
   $pubkey = Sensitive( $sshkey_pub )
   $privkey = Sensitive( $sshkey_priv )
@@ -35,9 +34,8 @@ class profile_xcat::master::root (
     owner   => root,
     group   => root,
     mode    => '0600',
-    require =>  File[ $sshdir ],
+    require => File[$sshdir],
   }
-
 
   # Define unique parameters of each resource
   $data = {

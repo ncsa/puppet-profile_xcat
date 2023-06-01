@@ -4,7 +4,6 @@
 #
 # Automatically included by profile_xcat::master
 class profile_xcat::master::tcpwrappers {
-
   $mgmt_networks = lookup( 'profile_xcat::mgmt_net_cidrs', Array )
   $ipmi_networks = lookup( 'profile_xcat::ipmi_net_cidrs', Array )
 
@@ -21,5 +20,4 @@ class profile_xcat::master::tcpwrappers {
       address => $cidr,
     }
   }
-
 }

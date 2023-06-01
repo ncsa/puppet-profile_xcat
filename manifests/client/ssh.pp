@@ -4,7 +4,6 @@
 #
 # Automatically included by profile_xcat::master
 class profile_xcat::client::ssh {
-
   # Get xcat master node info
   $pubkey = lookup( 'profile_xcat::master::root::sshkey_pub' )
   $master_node_ip = lookup( 'profile_xcat::master_node_ip' )
@@ -17,9 +16,9 @@ class profile_xcat::client::ssh {
     'Banner'                => 'none',
   }
   if $master_node_ip =~ String[1] {
-    ::sshd::allow_from{ 'profile_xcat-client-ssh':
-      hostlist                => [ $master_node_ip ],
-      users                   => [ root ],
+    ::sshd::allow_from { 'profile_xcat-client-ssh':
+      hostlist                => [$master_node_ip],
+      users                   => [root],
       additional_match_params => $params,
     }
   }
@@ -38,5 +37,4 @@ class profile_xcat::client::ssh {
       key    => $key_data,
     }
   }
-
 }
