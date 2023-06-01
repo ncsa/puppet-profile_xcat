@@ -16,7 +16,6 @@ define profile_xcat::master::nfs::export (
   String $network,
   Array  $options,
 ) {
-
   # Create a list of change strings for each mount point
   $dir = "defnode tgtdir dir[. = '${mount_point}'] ${mount_point}"
   $from = "defnode client \$tgtdir/client[. = '${network}'] ${network}"
@@ -28,18 +27,17 @@ define profile_xcat::master::nfs::export (
     $new_change = "set \$client/option[${i}] ${opt}"
     # append new change string to ary; this is the return value for the next
     # iteration
-    $ary + [ $new_change ]
+    $ary + [$new_change]
   }
 
   # merge all change strings into a single array
-  $changes = [ $dir ] + [ $from ] + $opts_changes
+  $changes = [$dir] + [$from] + $opts_changes
 
   # Apply changes (options) to the nfs exports file
   augeas { "profile_xcat::master::nfs::export: limit nfs export of '${mount_point}' to network '${network}'" :
     context => '/files/etc/exports',
     changes => $changes,
   }
-
 }
 
 #    # The above code will generate Puppet code like below

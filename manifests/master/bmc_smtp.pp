@@ -9,13 +9,11 @@
 class profile_xcat::master::bmc_smtp (
   Boolean $enable_bmc_smtp,
 ) {
-
   $xinetd_svc_name = 'bmc_smtp'
   $svc_file_path = "/etc/xinetd.d/${xinetd_svc_name}"
 
   if ($enable_bmc_smtp) {
-
-    include ::xinetd
+    include xinetd
 
     #Check for defined bind address
     $ipmi_bind_ip = lookup( 'profile_xcat::ipmi_bind_ip', undef, undef, undef )
@@ -26,7 +24,7 @@ class profile_xcat::master::bmc_smtp (
         $bind_ip = $ipmi_bind_ip
       } else {
         $bind_ip = ''
-        notify{'$ipmi_bind_ip is not a valid IP address': }
+        notify { '$ipmi_bind_ip is not a valid IP address': }
       }
     } else {
       #Discover the IP address from puppet facts
@@ -68,7 +66,6 @@ class profile_xcat::master::bmc_smtp (
       port         => '25',
       redirect     => 'localhost 25',
     }
-
   } else {
     # Make sure xinetd service is absent
 
@@ -78,7 +75,6 @@ class profile_xcat::master::bmc_smtp (
       path    => ['/bin', '/usr/bin'],
       command => "rm ${svc_file_path}; systemctl restart xinetd",
       onlyif  => "test -e ${svc_file_path}",
-
     }
   }
 }

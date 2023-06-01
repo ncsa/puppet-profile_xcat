@@ -13,6 +13,7 @@ For admin tools, see: [ncsa/xcat-tools](https://github.com/ncsa/xcat-tools)
 ## Dependencies
 
 - [inkblot/ipcalc](https://forge.puppet.com/inkblot/ipcalc)
+- [ncsa/profile_backup](https://github.com/ncsa/puppet-profile_backup)
 - [ncsa/profile_pam_access](https://github.com/ncsa/puppet-profile_pam_access)
 - [ncsa/sshd](https://github.com/ncsa/puppet-sshd)
 - [puppetlabs/firewall](https://forge.puppet.com/puppetlabs/firewall)
