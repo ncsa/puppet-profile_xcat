@@ -7,6 +7,7 @@ class profile_xcat::master {
   include profile_xcat::master::backup
   include profile_xcat::master::bmc_smtp
   include profile_xcat::master::firewall
+  include profile_xcat::master::inventory_audit
   include profile_xcat::master::nfs
   include profile_xcat::master::root
 

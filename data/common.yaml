@@ -37,6 +37,23 @@ profile_xcat::master::firewall::net_port_map:
     #tcp:
       #- 25    # SMTP
 
+profile_xcat::master::inventory_audit::cfg_audit_script: "/xcatpost/custom/report_configuration"
+profile_xcat::master::inventory_audit::cfg_cluster: "CLUSTER-PLACEHOLDER"
+profile_xcat::master::inventory_audit::cfg_mail_to: ""
+profile_xcat::master::inventory_audit::cfg_module_dirs: []
+profile_xcat::master::inventory_audit::cfg_module_host: ""
+profile_xcat::master::inventory_audit::cfg_nodes_to_audit:
+  - "all"
+profile_xcat::master::inventory_audit::cfg_nodes_to_ignore: []
+
+profile_xcat::master::inventory_audit::cron_audit_args: "--automated --module_audit --email_compare"
+profile_xcat::master::inventory_audit::cron_enable: false
+profile_xcat::master::inventory_audit::cron_hour: "5"
+profile_xcat::master::inventory_audit::cron_minute: "0"
+profile_xcat::master::inventory_audit::cron_month: "*"
+profile_xcat::master::inventory_audit::cron_monthday: "*"
+profile_xcat::master::inventory_audit::cron_weekday: "1"
+
 profile_xcat::master::root::sshkey_pub: ""
 #xCAT doesn't seem to support other key types at the moment
 profile_xcat::master::root::sshkey_type: "rsa"

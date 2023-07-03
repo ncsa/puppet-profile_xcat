@@ -7,19 +7,24 @@
 ### Classes
 
 * [`profile_xcat`](#profile_xcat): Defines variables that are used by both xcat::master and xcat::client
-* [`profile_xcat::client`](#profile_xcat--client): Setup access from xcat master to xcat client
-* [`profile_xcat::client::ssh`](#profile_xcat--client--ssh): Allow passwdless root access from xcat master node
-* [`profile_xcat::master`](#profile_xcat--master): Configure an xcat master node.
-* [`profile_xcat::master::backup`](#profile_xcat--master--backup): Configure xCAT master backups
-* [`profile_xcat::master::bmc_smtp`](#profile_xcat--master--bmc_smtp): Setup xinetd to allow forwarding email from node BMC's to MDA on local (master) node
-* [`profile_xcat::master::firewall`](#profile_xcat--master--firewall): Open firewall for xcat services on mgmt and ipmi networks
-* [`profile_xcat::master::nfs`](#profile_xcat--master--nfs): Harden NFS settings on xcat-master
-* [`profile_xcat::master::root`](#profile_xcat--master--root): Setup root account
-* [`profile_xcat::master::tcpwrappers`](#profile_xcat--master--tcpwrappers): Configure tcpwrappers to allow from mgmt net and ipmi net
+* [`profile_xcat::client`](#profile_xcatclient): Setup access from xcat master to xcat client
+* [`profile_xcat::client::ssh`](#profile_xcatclientssh): Allow passwdless root access from xcat master node
+* [`profile_xcat::master`](#profile_xcatmaster): Configure an xcat master node.
+* [`profile_xcat::master::backup`](#profile_xcatmasterbackup): Configure xCAT master backups
+* [`profile_xcat::master::bmc_smtp`](#profile_xcatmasterbmc_smtp): Setup xinetd to allow forwarding email from node BMC's to MDA on local (master) node
+* [`profile_xcat::master::firewall`](#profile_xcatmasterfirewall): Open firewall for xcat services on mgmt and ipmi networks
+* [`profile_xcat::master::inventory_audit`](#profile_xcatmasterinventory_audit): Control/configure audits for xcat booted nodes
+Audits will collect information about the nodes, and save them to a directory locally on the xcat server.
+
+Optionally, audits can be setup to run via  cron, and a difference report from the last audit can then
+be emailed
+* [`profile_xcat::master::nfs`](#profile_xcatmasternfs): Harden NFS settings on xcat-master
+* [`profile_xcat::master::root`](#profile_xcatmasterroot): Setup root account
+* [`profile_xcat::master::tcpwrappers`](#profile_xcatmastertcpwrappers): Configure tcpwrappers to allow from mgmt net and ipmi net
 
 ### Defined types
 
-* [`profile_xcat::master::nfs::export`](#profile_xcat--master--nfs--export): Limit an nfs export of "mountpoint" to a specific "network"
+* [`profile_xcat::master::nfs::export`](#profile_xcatmasternfsexport): Limit an nfs export of "mountpoint" to a specific "network"
 
 ## Classes
 
@@ -31,36 +36,36 @@ Defines variables that are used by xcat::master and xcat::client
 
 The following parameters are available in the `profile_xcat` class:
 
-* [`ipmi_bind_ip`](#-profile_xcat--ipmi_bind_ip)
-* [`ipmi_net_cidrs`](#-profile_xcat--ipmi_net_cidrs)
-* [`mgmt_net_cidrs`](#-profile_xcat--mgmt_net_cidrs)
-* [`master_node_ip`](#-profile_xcat--master_node_ip)
+* [`ipmi_bind_ip`](#ipmi_bind_ip)
+* [`ipmi_net_cidrs`](#ipmi_net_cidrs)
+* [`mgmt_net_cidrs`](#mgmt_net_cidrs)
+* [`master_node_ip`](#master_node_ip)
 
-##### <a name="-profile_xcat--ipmi_bind_ip"></a>`ipmi_bind_ip`
+##### <a name="ipmi_bind_ip"></a>`ipmi_bind_ip`
 
 Data type: `Optional[String]`
 
 Optional IP address to bind xinetd service for IPMI
 
-##### <a name="-profile_xcat--ipmi_net_cidrs"></a>`ipmi_net_cidrs`
+##### <a name="ipmi_net_cidrs"></a>`ipmi_net_cidrs`
 
 Data type: `Array`
 
 xCAT IPMI network(s), in CIDR format
 
-##### <a name="-profile_xcat--mgmt_net_cidrs"></a>`mgmt_net_cidrs`
+##### <a name="mgmt_net_cidrs"></a>`mgmt_net_cidrs`
 
 Data type: `Array`
 
 xCAT boot and mgmt network(s), in CIDR format
 
-##### <a name="-profile_xcat--master_node_ip"></a>`master_node_ip`
+##### <a name="master_node_ip"></a>`master_node_ip`
 
 Data type: `String`
 
 IP of xCAT master node
 
-### <a name="profile_xcat--client"></a>`profile_xcat::client`
+### <a name="profile_xcatclient"></a>`profile_xcat::client`
 
 Setup access from xcat master to xcat client
 
@@ -72,19 +77,19 @@ Setup access from xcat master to xcat client
 include profile_xcat::client
 ```
 
-### <a name="profile_xcat--client--ssh"></a>`profile_xcat::client::ssh`
+### <a name="profile_xcatclientssh"></a>`profile_xcat::client::ssh`
 
 Allow passwdless root access from xcat master node
 
 Automatically included by profile_xcat::master
 
-### <a name="profile_xcat--master"></a>`profile_xcat::master`
+### <a name="profile_xcatmaster"></a>`profile_xcat::master`
 
 Configure an xcat master node.
 
 Includes all subordinate classes.
 
-### <a name="profile_xcat--master--backup"></a>`profile_xcat::master::backup`
+### <a name="profile_xcatmasterbackup"></a>`profile_xcat::master::backup`
 
 Configure xCAT master backups
 
@@ -96,7 +101,7 @@ Configure xCAT master backups
 include profile_xcat::master::backup
 ```
 
-### <a name="profile_xcat--master--bmc_smtp"></a>`profile_xcat::master::bmc_smtp`
+### <a name="profile_xcatmasterbmc_smtp"></a>`profile_xcat::master::bmc_smtp`
 
 Setup xinetd to allow forwarding email from node BMC's to MDA on local (master) node
 
@@ -106,15 +111,15 @@ Automatically included by profile_xcat::master
 
 The following parameters are available in the `profile_xcat::master::bmc_smtp` class:
 
-* [`enable_bmc_smtp`](#-profile_xcat--master--bmc_smtp--enable_bmc_smtp)
+* [`enable_bmc_smtp`](#enable_bmc_smtp)
 
-##### <a name="-profile_xcat--master--bmc_smtp--enable_bmc_smtp"></a>`enable_bmc_smtp`
+##### <a name="enable_bmc_smtp"></a>`enable_bmc_smtp`
 
 Data type: `Boolean`
 
 Enable/disable the xinetd service allowing xcat nodes to send to xcat master.
 
-### <a name="profile_xcat--master--firewall"></a>`profile_xcat::master::firewall`
+### <a name="profile_xcatmasterfirewall"></a>`profile_xcat::master::firewall`
 
 Open firewall for xcat services on mgmt and ipmi networks
 
@@ -127,16 +132,144 @@ Automatically included by profile_xcat::master
 
 The following parameters are available in the `profile_xcat::master::firewall` class:
 
-* [`net_port_map`](#-profile_xcat--master--firewall--net_port_map)
+* [`net_port_map`](#net_port_map)
 
-##### <a name="-profile_xcat--master--firewall--net_port_map"></a>`net_port_map`
+##### <a name="net_port_map"></a>`net_port_map`
 
 Data type: `Hash`
 
 Hash of hashes defining the Network (MGMT or IPMI, both required), the protocol (tcp or udp),
 and the port(s) to open. See common.yaml for example
 
-### <a name="profile_xcat--master--nfs"></a>`profile_xcat::master::nfs`
+### <a name="profile_xcatmasterinventory_audit"></a>`profile_xcat::master::inventory_audit`
+
+Control/configure audits for xcat booted nodes
+Audits will collect information about the nodes, and save them to a directory locally on the xcat server.
+
+Optionally, audits can be setup to run via  cron, and a difference report from the last audit can then
+be emailed
+
+#### Examples
+
+##### 
+
+```puppet
+include profile_xcat::master::inventory_audit
+```
+
+#### Parameters
+
+The following parameters are available in the `profile_xcat::master::inventory_audit` class:
+
+* [`cfg_audit_script`](#cfg_audit_script)
+* [`cfg_cluster`](#cfg_cluster)
+* [`cfg_mail_to`](#cfg_mail_to)
+* [`cfg_module_dirs`](#cfg_module_dirs)
+* [`cfg_module_host`](#cfg_module_host)
+* [`cfg_nodes_to_audit`](#cfg_nodes_to_audit)
+* [`cfg_nodes_to_ignore`](#cfg_nodes_to_ignore)
+* [`cron_audit_args`](#cron_audit_args)
+* [`cron_enable`](#cron_enable)
+* [`cron_hour`](#cron_hour)
+* [`cron_minute`](#cron_minute)
+* [`cron_month`](#cron_month)
+* [`cron_monthday`](#cron_monthday)
+* [`cron_weekday`](#cron_weekday)
+
+##### <a name="cfg_audit_script"></a>`cfg_audit_script`
+
+Data type: `String`
+
+Path to script used to generate audit (script expected to be on the host(s) being audited
+
+##### <a name="cfg_cluster"></a>`cfg_cluster`
+
+Data type: `String`
+
+Name for the Cluster, used in the subject when email reports are enabled
+
+##### <a name="cfg_mail_to"></a>`cfg_mail_to`
+
+Data type: `String`
+
+Address to email results of audit comparisons
+
+##### <a name="cfg_module_dirs"></a>`cfg_module_dirs`
+
+Data type: `Array[String]`
+
+List of directories to search for module files
+
+File globs recognized by 'find' are allowed, Ex: /sw/apps/private/*/modules/
+
+##### <a name="cfg_module_host"></a>`cfg_module_host`
+
+Data type: `String`
+
+Hostname to perform the module listing from
+
+##### <a name="cfg_nodes_to_audit"></a>`cfg_nodes_to_audit`
+
+Data type: `Array[String]`
+
+List of nodes to include in audit (nodes in excludenodes from xcat site table are automatically ignored)
+
+Can list xcat groups, individual nodes, or individual node ranges.
+Syntax for a range should match what you'd pass to nodels, ex: node[1-4]
+
+##### <a name="cfg_nodes_to_ignore"></a>`cfg_nodes_to_ignore`
+
+Data type: `Array[String]`
+
+List of nodes to ignore from audit (nodes in excludenodes from xcat site table are automatically ignored)
+
+Can list xcat groups, individual nodes, or individual node ranges.
+Syntax for a range should match what you'd pass to nodels, ex: node[1-4]
+
+##### <a name="cron_audit_args"></a>`cron_audit_args`
+
+Data type: `String`
+
+Arguments to use when running the inventory_audit via cron. These args can enable/disable emailing the results
+of comparisons, as well as enable/disable auditing the list of modules installed
+
+##### <a name="cron_enable"></a>`cron_enable`
+
+Data type: `Boolean`
+
+Enable/disable running the inventory_audit via cron
+
+##### <a name="cron_hour"></a>`cron_hour`
+
+Data type: `String`
+
+Hour to run inventory_audit cron
+
+##### <a name="cron_minute"></a>`cron_minute`
+
+Data type: `String`
+
+Minute to run inventory_audit cron
+
+##### <a name="cron_month"></a>`cron_month`
+
+Data type: `String`
+
+Month to run inventory_audit cron
+
+##### <a name="cron_monthday"></a>`cron_monthday`
+
+Data type: `String`
+
+Monthday to run inventory_audit cron
+
+##### <a name="cron_weekday"></a>`cron_weekday`
+
+Data type: `String`
+
+Weekday to run inventory_audit cron
+
+### <a name="profile_xcatmasternfs"></a>`profile_xcat::master::nfs`
 
 Harden NFS settings on xcat-master
 
@@ -144,7 +277,7 @@ Allow NFS exports only to known management networks
 
 Automatically included by profile_xcat::master
 
-### <a name="profile_xcat--master--root"></a>`profile_xcat::master::root`
+### <a name="profile_xcatmasterroot"></a>`profile_xcat::master::root`
 
 Setup root account
 
@@ -154,11 +287,11 @@ Automatically included by profile_xcat::master
 
 The following parameters are available in the `profile_xcat::master::root` class:
 
-* [`sshkey_pub`](#-profile_xcat--master--root--sshkey_pub)
-* [`sshkey_priv`](#-profile_xcat--master--root--sshkey_priv)
-* [`sshkey_type`](#-profile_xcat--master--root--sshkey_type)
+* [`sshkey_pub`](#sshkey_pub)
+* [`sshkey_priv`](#sshkey_priv)
+* [`sshkey_type`](#sshkey_type)
 
-##### <a name="-profile_xcat--master--root--sshkey_pub"></a>`sshkey_pub`
+##### <a name="sshkey_pub"></a>`sshkey_pub`
 
 Data type: `String`
 
@@ -166,13 +299,13 @@ Public part of root's sshkey.
 
 Installed on all client nodes for passwdless access from xcat mn
 
-##### <a name="-profile_xcat--master--root--sshkey_priv"></a>`sshkey_priv`
+##### <a name="sshkey_priv"></a>`sshkey_priv`
 
 Data type: `String`
 
 Private part of root's sshkey.
 
-##### <a name="-profile_xcat--master--root--sshkey_type"></a>`sshkey_type`
+##### <a name="sshkey_type"></a>`sshkey_type`
 
 Data type: `String`
 
@@ -180,7 +313,7 @@ OPTIONAL - defaults to "rsa" (currently, xcat supports only rsa sshkeys)
 
 Sshkeys are stored in /root/id_<TYPE>* files
 
-### <a name="profile_xcat--master--tcpwrappers"></a>`profile_xcat::master::tcpwrappers`
+### <a name="profile_xcatmastertcpwrappers"></a>`profile_xcat::master::tcpwrappers`
 
 Configure tcpwrappers to allow from mgmt net and ipmi net
 
@@ -188,7 +321,7 @@ Automatically included by profile_xcat::master
 
 ## Defined types
 
-### <a name="profile_xcat--master--nfs--export"></a>`profile_xcat::master::nfs::export`
+### <a name="profile_xcatmasternfsexport"></a>`profile_xcat::master::nfs::export`
 
 Limit an nfs export of "mountpoint" to a specific "network"
 
@@ -204,23 +337,23 @@ profile_xcat::master::nfs::export { 'namevar': }
 
 The following parameters are available in the `profile_xcat::master::nfs::export` defined type:
 
-* [`mount_point`](#-profile_xcat--master--nfs--export--mount_point)
-* [`network`](#-profile_xcat--master--nfs--export--network)
-* [`options`](#-profile_xcat--master--nfs--export--options)
+* [`mount_point`](#mount_point)
+* [`network`](#network)
+* [`options`](#options)
 
-##### <a name="-profile_xcat--master--nfs--export--mount_point"></a>`mount_point`
+##### <a name="mount_point"></a>`mount_point`
 
 Data type: `String`
 
 The local mount point that is being exported
 
-##### <a name="-profile_xcat--master--nfs--export--network"></a>`network`
+##### <a name="network"></a>`network`
 
 Data type: `String`
 
 The network CIDR to be allowed access
 
-##### <a name="-profile_xcat--master--nfs--export--options"></a>`options`
+##### <a name="options"></a>`options`
 
 Data type: `Array`
 

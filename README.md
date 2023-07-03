@@ -80,22 +80,4 @@ Also see the defaults for `net_port_map` set in common.yaml, which has many of t
 
 ## Reference
 
-### class profile_xcat::master::firewall (
--  Hash $net_port_map,
-### class profile_xcat::master::root (
--  String $sshkey_pub,
--  String $sshkey_priv,
--  String $sshkey_type,
-### class profile_xcat::master::bmc_smtp (
--  Boolean $enable_bmc_smtp,
-### define profile_xcat::master::nfs::export (
--  String $mount_point,
--  String $network,
--  Array  $options,
-### class profile_xcat (
--  Array $ipmi_net_cidrs,
--  Array $mgmt_net_cidrs,
--  String $master_node_ip,
--  Optional[ String ] $ipmi_bind_ip,
-
 [REFERENCE.md](REFERENCE.md)

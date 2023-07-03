@@ -1,0 +1,37 @@
+<%- | $cfg_audit_dir,
+      $cfg_audit_node_string,
+      $cfg_audit_script,
+      $cfg_cluster,
+      $cfg_mail_to,
+      $cfg_module_dirs,
+      $cfg_module_host,
+| -%>
+#!/bin/bash
+
+# This file is managed by Puppet
+
+# Variables to source for configuring audit script
+
+CLUSTER="<%= $cfg_cluster %>"
+
+AUDIT_SCRIPT="<%= $cfg_audit_script %>"
+COMPARE_SCRIPT="<%= $cfg_audit_dir %>/compare_audit.sh"
+BASE_REPORT_DST="<%= $cfg_audit_dir %>/reports"
+AUTOMATED_REPORT_DST="${BASE_REPORT_DST}/automated_reports"
+AUDIT_ID="$$"
+DATETIME=$(date +%Y%m%d-%H%M%S)
+
+# Which host to do the MODULE inventory from
+MODULE_HOST="<%= $cfg_module_host %>"
+
+# Space separated list of dirs that hold modules to inventory
+# File globs recognized by 'find' are allowed, Ex: /sw/apps/private/*/modules/
+MODULE_DIRS="<%= $cfg_module_dirs.join(' ') %>"
+
+MAIL_SUBJECT="Audit report for ${CLUSTER} - $(date +%Y-%m%d)"
+MAIL_TO="<%= $cfg_mail_to %>"
+
+# Nodes to audit, syntax should match a string passed to nodels
+# Ex: "all,-node[10-20],-testnode1"
+#   Would include all nodes in xcat group 'all' but ignore node range node[10-20] and ignore testnode1
+AUDIT_NODE_STRING="<%= $cfg_audit_node_string %>"
