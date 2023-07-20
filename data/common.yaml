@@ -4,6 +4,18 @@ profile_xcat::master_node_ip: ""
 
 profile_xcat::master::bmc_smtp::enable_bmc_smtp: false
 
+profile_xcat::master::backup::locations:
+  - "/etc/xcat"
+  - "/install/bin"
+  - "/install/custom"
+  - "/install/files"
+  - "/install/host_specific"
+  - "/install/postinstall"
+  - "/install/postscripts"
+  - "/root/imagebuilds"
+  - "/root/xcat-tools/conf"
+  - "/var/backups/xcat"
+
 # Many ports have been commented out since nothing is listening
 # on said port/protocol after checking during vetting
 profile_xcat::master::firewall::net_port_map:
