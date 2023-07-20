@@ -93,13 +93,18 @@ Includes all subordinate classes.
 
 Configure xCAT master backups
 
-#### Examples
+#### Parameters
 
-##### 
+The following parameters are available in the `profile_xcat::master::backup` class:
 
-```puppet
+* [`locations`](#locations)
+
+##### <a name="locations"></a>`locations`
+
+Data type: `Array[String]`
+
+files and directories that are to be backed up
 include profile_xcat::master::backup
-```
 
 ### <a name="profile_xcatmasterbmc_smtp"></a>`profile_xcat::master::bmc_smtp`
 
