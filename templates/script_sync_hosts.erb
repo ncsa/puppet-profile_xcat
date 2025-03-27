@@ -1,0 +1,9 @@
+#!/usr/bin/bash
+
+THISHOST=`/usr/bin/hostname -s`
+
+# copy /etc/hosts from the xCAT master; remove references to this host from the sync'd
+# copy; move the edited copy into place
+/bin/scp -q <%= @master_node_hostname %>:/etc/hosts /etc/.hosts.xcat
+/usr/bin/sed -i "/$THISHOST\(\.\|-\)/d" /etc/.hosts.xcat
+/usr/bin/mv -f /etc/.hosts.xcat /etc/hosts

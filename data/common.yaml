@@ -1,6 +1,41 @@
 ---
+lookup_options:
+  profile_xcat::admin_bastion::hosts::cron_data:
+    merge:
+      strategy: "deep"
+  profile_xcat::admin_bastion::parallel_shells::cron_data:
+    merge:
+      strategy: "deep"
+  profile_xcat::master::group_export::cron_data:
+    merge:
+      strategy: "deep"
+
 #empty values to allow for client to run without errors
-profile_xcat::master_node_ip: ""
+profile_xcat::admin_bastions: {}
+
+profile_xcat::admin_bastion::hosts::cron_data:
+  environment: ["SHELL=/bin/sh"]
+  hour: "3"
+  minute: "5"
+  month: "*"
+  monthday: "*"
+  user: "root"
+  weekday: "*"
+profile_xcat::admin_bastion::hosts::cron_enable: false
+profile_xcat::admin_bastion::hosts::script_sync_hosts: "/root/cron_scripts/sync_hosts_from_master.sh"
+
+profile_xcat::admin_bastion::parallel_shells::cron_data:
+  environment: ["SHELL=/bin/sh"]
+  hour: "4"
+  minute: "10"
+  month: "*"
+  monthday: "*"
+  user: "root"
+  weekday: "*"
+profile_xcat::admin_bastion::parallel_shells::cron_enable: false
+profile_xcat::admin_bastion::parallel_shells::file_config_genders: "/etc/genders"
+profile_xcat::admin_bastion::parallel_shells::script_install_configs: "/root/cron_scripts/install_parallel_shell_configs.sh"
+profile_xcat::admin_bastion::parallel_shells::script_sync_configs: "/root/cron_scripts/sync_parallel_shell_configs.sh"
 
 profile_xcat::master::bmc_smtp::enable_bmc_smtp: false
 
@@ -49,6 +84,20 @@ profile_xcat::master::firewall::net_port_map:
     #tcp:
       #- 25    # SMTP
 
+profile_xcat::master::group_export::cron_data:
+  environment: ["SHELL=/bin/sh"]
+  hour: "4"
+  minute: "0"
+  month: "*"
+  monthday: "*"
+  user: "root"
+  weekday: "*"
+profile_xcat::master::group_export::cron_enable: false
+profile_xcat::master::group_export::script_build_genders: "/root/cron_scripts/build_genders_config_from_xcat.py"
+profile_xcat::master::group_export::script_export_xcat: "/root/cron_scripts/export_xcat_nodes.sh"
+profile_xcat::master::group_export::temp_config_genders: "/root/.genders_config"
+profile_xcat::master::group_export::temp_export_xcat: "/root/.xcat_nodes"
+
 profile_xcat::master::inventory_audit::cfg_audit_script: "/xcatpost/custom/report_configuration"
 profile_xcat::master::inventory_audit::cfg_cluster: "CLUSTER-PLACEHOLDER"
 profile_xcat::master::inventory_audit::cfg_mail_to: ""
@@ -65,7 +114,3 @@ profile_xcat::master::inventory_audit::cron_minute: "0"
 profile_xcat::master::inventory_audit::cron_month: "*"
 profile_xcat::master::inventory_audit::cron_monthday: "*"
 profile_xcat::master::inventory_audit::cron_weekday: "1"
-
-profile_xcat::master::root::sshkey_pub: ""
-#xCAT doesn't seem to support other key types at the moment
-profile_xcat::master::root::sshkey_type: "rsa"

@@ -1,0 +1,8 @@
+#!/usr/bin/bash
+
+SYNC_FILES="<%= @temp_config_genders %>"
+
+for i in $SYNC_FILES
+do
+  /bin/scp -q <%= @master_node_hostname %>:"${i}.generated" ${i}
+done

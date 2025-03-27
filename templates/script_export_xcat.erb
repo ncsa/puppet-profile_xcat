@@ -1,0 +1,5 @@
+#!/usr/bin/bash
+
+xcat_nodes="<%= @temp_export_xcat %>"
+
+/opt/xcat/bin/lsdef -t node -l > $xcat_nodes

@@ -4,12 +4,13 @@
 #
 # Includes all subordinate classes.
 class profile_xcat::master {
+  include profile_xcat::admin_bastion
   include profile_xcat::master::backup
   include profile_xcat::master::bmc_smtp
   include profile_xcat::master::firewall
+  include profile_xcat::master::group_export
   include profile_xcat::master::inventory_audit
   include profile_xcat::master::nfs
-  include profile_xcat::master::root
 
   # tcpwrappers was removed in RHEL8
   $os_family = $facts['os']['family']

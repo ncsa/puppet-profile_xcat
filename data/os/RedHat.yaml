@@ -1,0 +1,9 @@
+---
+profile_xcat::admin_bastion::parallel_shells::packages_clustershell:
+  - "clustershell"      # aka clush
+profile_xcat::admin_bastion::parallel_shells::packages_genders:
+  - "genders"           # node inventory tool
+profile_xcat::admin_bastion::parallel_shells::packages_pdsh:
+  - "pdsh"
+  - "pdsh-mod-genders"  # allow pdsh to pull groups from genders
+  - "pdsh-rcmd-ssh"     # allow pdsh to use ssh as its rcmd

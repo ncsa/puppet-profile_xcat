@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-describe 'profile_xcat::master::root' do
+describe 'profile_xcat::admin_bastion::hosts' do
   on_supported_os.each do |os, os_facts|
     context "on #{os}" do
       let(:facts) { os_facts }
